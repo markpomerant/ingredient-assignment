@@ -9,7 +9,7 @@ import { KosLog } from "@coca-cola/kos-ui-core";
 import React, { Suspense } from "react";
 import { DispenserView } from "./components/dispenser";
 
-KosLog.setLevel("INFO");
+KosLog.setLevel("DEBUG");
 
 const { KosCoreContextProvider } = initKosProvider(Registry);
 

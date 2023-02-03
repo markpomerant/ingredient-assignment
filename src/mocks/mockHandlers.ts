@@ -5,7 +5,7 @@ const handlers = {
 };
 
 // Set this to true to force mocking if there is no running backend.
-initHandlers(handlers, true);
+initHandlers(handlers, false);
 
 // starts random availability update at an interval of every 10 seconds
 // kosRandomAvailability({interval: 1000});

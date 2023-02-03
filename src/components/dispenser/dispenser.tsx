@@ -1,6 +1,7 @@
 import { kosComponent, LoadingMessage } from "@coca-cola/kos-ui-components";
 import React, { PropsWithChildren } from "react";
 import { useDispenserModel } from "../../hooks/dispenser";
+import { HolderContainer } from "../holder/holders";
 
 interface Props {}
 
@@ -10,8 +11,7 @@ export const DispenserView: React.FunctionComponent<PropsWithChildren<Props>> =
 
     return (
       <KosModelLoader {...status} loading={<LoadingMessage></LoadingMessage>}>
-        <div>Welcome to kOS</div>
-        <div>{status?.model?.name}</div>
+        <HolderContainer></HolderContainer>
       </KosModelLoader>
     );
   });
