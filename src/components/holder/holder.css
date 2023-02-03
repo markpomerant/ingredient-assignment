@@ -12,8 +12,8 @@
 }
 
 .holder.not-assigned {
-  border: solid 1px red;
-  background-color: lightsalmon;
+  border: solid 1px #025043;
+  background-color: #b3e0dc;
 }
 
 .holder-container {

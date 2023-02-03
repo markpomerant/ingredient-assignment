@@ -1,0 +1,77 @@
+.modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition-delay: 300ms;
+  transition: all 0.3s ease-in-out;
+}
+
+.modal.enter-done {
+  opacity: 1;
+  pointer-events: visible;
+}
+
+.modal.exit {
+  opacity: 0;
+}
+.modal.show {
+  opacity: 1;
+  pointer-events: visible;
+}
+
+.modal-header,
+.modal-footer {
+  padding: 10px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.modal-title {
+  margin: 0;
+}
+
+.modal-content {
+  width: 500px;
+  background-color: #fff;
+  transform: translateY(-200px);
+  transition-delay: 300ms;
+  transition: all 0.3s ease-in-out;
+}
+
+.modal.exit .modal-content {
+  transform: translateY(-200px);
+}
+.modal.enter-done .modal-content {
+  transform: translateY(0);
+}
+
+.modal-body {
+  padding: 10px;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+}
+
+.ingredient {
+  line-height: 40px;
+  font-size: x-large;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid 3px black;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.ingredient.selected {
+  border-color: red;
+  background-color: #eee;
+}
