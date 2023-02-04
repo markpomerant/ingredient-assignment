@@ -2,6 +2,7 @@
   "name": "ingredient-assignment",
   "version": "0.1.0",
   "private": true,
+  "homepage": ".",
   "dependencies": {
     "@coca-cola/kos-templates": "^1.0.4-alpha.184",
     "@coca-cola/kos-test-utils": "^0.0.4-alpha.148",

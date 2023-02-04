@@ -6,11 +6,13 @@ import "./modal.css";
 interface Props {
   onClose: () => void;
   onSubmit: () => void;
+  title: string;
   show: boolean;
 }
 export const Modal: React.FunctionComponent<PropsWithChildren<Props>> = ({
   onClose,
   onSubmit,
+  title,
   children,
   show,
 }) => {
@@ -44,7 +46,7 @@ export const Modal: React.FunctionComponent<PropsWithChildren<Props>> = ({
       >
         <div className={"modal-content"} onClick={(e) => e.stopPropagation()}>
           <div className={"modal-header"}>
-            <h4 className={"modal-title"}>Modal Title</h4>
+            <h4 className={"modal-title"}>{title}</h4>
           </div>
           <div className={"modal-body"}>{children}</div>
           <div className={"modal-footer"}>

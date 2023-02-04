@@ -3,11 +3,12 @@ import { Registry } from "./registration";
 import {
   ErrorBoundaryWithFallback,
   initKosProvider,
+  KosModelCollectionProvider,
   LoadingMessage,
 } from "@coca-cola/kos-ui-components";
 import { KosLog } from "@coca-cola/kos-ui-core";
 import React, { Suspense } from "react";
-import { DispenserView } from "./components/dispenser";
+import { IngredientContainerView } from "./components/ingredient-container";
 
 KosLog.setLevel("DEBUG");
 
@@ -18,7 +19,9 @@ function App() {
     <ErrorBoundaryWithFallback>
       <Suspense fallback={<LoadingMessage></LoadingMessage>}>
         <KosCoreContextProvider>
-          <DispenserView></DispenserView>
+          <KosModelCollectionProvider>
+            <IngredientContainerView></IngredientContainerView>
+          </KosModelCollectionProvider>
         </KosCoreContextProvider>
       </Suspense>
     </ErrorBoundaryWithFallback>

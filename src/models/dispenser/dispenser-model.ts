@@ -20,11 +20,22 @@ export class DispenserModel implements IDispenserModel {
     this.holders = new KosModelContainer();
   }
 
+  async init() {
+    log.debug("initializing dispenser");
+  }
+  async online(): Promise<void> {
+    log.debug("calling online for dispenser model");
+  }
+
+  async ready() {
+    log.debug("readying dispenser model");
+  }
   async load(): Promise<void> {
 
-    
+    log.info("loading dispenser model");
     const holders = await Services.getHolders();
     holders?.data.forEach((holderData) => {
+      log.debug("creating holder factory", holderData.path);
        const holder = Holder.factory(holderData.path)(holderData);
        this.holders.addModel(holder);
     })
@@ -36,6 +47,7 @@ export class DispenserModel implements IDispenserModel {
        const holder = this.holders.getModel(holderPath);
 
        if (holder && ingredientModel) {
+        log.debug("updating ingredient assignment holder factory", holderPath, ingredientModel.name);
          holder.updateIngredientAssignment(ingredientModel.name);
        }
     });

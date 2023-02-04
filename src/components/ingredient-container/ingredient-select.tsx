@@ -37,6 +37,7 @@ export const IngredientSelect: React.FunctionComponent<Props> = ({
         Assign
       </Button>
       <Modal
+        title={`Assign Ingredient`}
         onClose={() => setShow(false)}
         onSubmit={() => onSelect(selected)}
         show={show}
