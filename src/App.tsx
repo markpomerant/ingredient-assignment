@@ -8,7 +8,7 @@ import {
 } from "@coca-cola/kos-ui-components";
 import { KosLog } from "@coca-cola/kos-ui-core";
 import React, { Suspense } from "react";
-import { IngredientContainerView } from "./components/ingredient-container";
+import { DispenserView } from "./components/dispenser";
 
 KosLog.setLevel("DEBUG");
 
@@ -20,7 +20,7 @@ function App() {
       <Suspense fallback={<LoadingMessage></LoadingMessage>}>
         <KosCoreContextProvider>
           <KosModelCollectionProvider>
-            <IngredientContainerView></IngredientContainerView>
+            <DispenserView></DispenserView>
           </KosModelCollectionProvider>
         </KosCoreContextProvider>
       </Suspense>

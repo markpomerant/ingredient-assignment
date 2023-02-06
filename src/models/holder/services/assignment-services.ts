@@ -2,7 +2,7 @@ import { ServiceFactory, resolveServiceUrl } from "@coca-cola/kos-ui-core";
 const { URL } = resolveServiceUrl("ASSIGNMENT_SERVICE");
 const { getAll, postModel, deleteModel } = ServiceFactory.build({
     destinationAddress: "",
-    basePath: `${URL}/api/assignments`,
+    basePath: `${URL}/api/kos/assignments`,
   });
 
 export interface Assignment {

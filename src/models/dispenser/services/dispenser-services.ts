@@ -1,7 +1,7 @@
 import { ServiceFactory, resolveServiceUrl } from "@coca-cola/kos-ui-core";
 const { URL } = resolveServiceUrl("DISPENSER_SERVICE");
 const { getOne } = ServiceFactory.build({
-  basePath: `${URL}/api/dispenser`,
+  basePath: `${URL}/api/kos/dispenser`,
 });
 
 interface DispenserResponse {

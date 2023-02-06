@@ -14,7 +14,7 @@ interface Pump {
   path: string;
 }
 
-interface Holder {
+export interface HolderResponse {
   assembly: string;
   name: string;
   path: string;
@@ -24,7 +24,7 @@ interface Holder {
 
 const { URL } = resolveServiceUrl("DISPENSER_SERVICE");
 const { getAll } = ServiceFactory.build({
-    basePath: `${URL}/api/holders`,
+    basePath: `${URL}/api/kos/holders`,
   });
 
 /**
@@ -33,6 +33,6 @@ const { getAll } = ServiceFactory.build({
  */
  export const getHolders = async () => {
 
-    const response = await getAll<Holder>({});
+    const response = await getAll<HolderResponse>({});
     return response;
   };

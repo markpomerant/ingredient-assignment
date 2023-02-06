@@ -5,7 +5,7 @@ export const dispenserData = {
 };
 
 export const mockIngredients = {
-  "/api/dispenser": (requestId: string) => {
+  "/api/kos/dispenser": (requestId: string) => {
     const body = dispenserData;
     const response = createHttpResponse({
       body,

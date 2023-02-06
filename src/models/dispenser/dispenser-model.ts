@@ -1,12 +1,17 @@
-import { kosModel, KosLog, Kos, kosDependency, IKosModelContainer, KosModelContainer, kosTopicHandler } from "@coca-cola/kos-ui-core";
+import { kosModel, KosLog, Kos, kosDependency, IKosModelContainer, KosModelContainer, kosTopicHandler, ApiCallback } from "@coca-cola/kos-ui-core";
 import { IDispenserModel, IDispenserOptions } from "./types";
 import {IIngredientContainerModel, IngredientContainer} from "../ingredient-container";
-import {Services, Holder, IHolderModel} from "../holder";
-import {Assignment} from "../holder/services";
+import {Services, IHolderModel} from "../holder";
+import {mapAssignmentResponseToModel, mapHolderResponseToModel} from "./mappings";
 const MODEL_TYPE = "dispenser-model";
 
 const log = KosLog.getLogger("dispenser-model");
 
+
+const convertToAssignment = (data: ApiCallback): Services.Assignment => {
+  const assignment: Services.Assignment = JSON.parse(data.body);
+  return assignment as Services.Assignment;
+}
 @kosModel<IDispenserModel, IDispenserOptions>(MODEL_TYPE)
 export class DispenserModel implements IDispenserModel {
   id: string;
@@ -34,33 +39,15 @@ export class DispenserModel implements IDispenserModel {
 
     log.info("loading dispenser model");
     const holders = await Services.getHolders();
-    holders?.data.forEach((holderData) => {
-      log.debug("creating holder factory", holderData.path);
-       const holder = Holder.factory(holderData.path)(holderData);
-       this.holders.addModel(holder);
-    })
+    holders?.data.forEach(mapHolderResponseToModel(this))
     const assignments = await Services.getAssignments();
-    assignments?.data.forEach((assignment) => {
-       const holderPath = assignment.holderPath;
-       const ingredientId = assignment.ingredientId;
-       const ingredientModel = this.ingredients.container.getModel(ingredientId);
-       const holder = this.holders.getModel(holderPath);
-
-       if (holder && ingredientModel) {
-        log.debug("updating ingredient assignment holder factory", holderPath, ingredientModel.name);
-         holder.updateIngredientAssignment(ingredientModel.name);
-       }
-    });
-
-
-
+    assignments?.data.forEach(mapAssignmentResponseToModel(this));
    }
 
-   @kosTopicHandler({topic: "/kos/assignments/add", websocket: true, transform: (data) => {
-       const assignment = JSON.parse(data.body);
-       return assignment;
-   }})
-   addIngredientAssignment(data: Assignment) {
+   @kosTopicHandler({topic: "/kos/assignments/add", 
+   websocket: true, 
+   transform: convertToAssignment})
+   addIngredientAssignment(data: Services.Assignment) {
        const ingredientId = data.ingredientId;
        const ingredientModel = this.ingredients.container.getModel(ingredientId);
       const holder = this.holders.getModel(data.holderPath);
@@ -69,11 +56,13 @@ export class DispenserModel implements IDispenserModel {
        }
    }
 
-   @kosTopicHandler({topic: "/kos/assignments/remove", websocket: true, transform: (data) => {
+   @kosTopicHandler({
+    topic: "/kos/assignments/remove", 
+    websocket: true, transform: (data) => {
        const assignment = JSON.parse(data.body);
        return assignment;
    }})
-   removeIngredientAssignment(data: Assignment) {
+   removeIngredientAssignment(data: Services.Assignment) {
        const holder = this.holders.getModel(data.holderPath);
        if (holder) {
            holder.updateIngredientAssignment();
