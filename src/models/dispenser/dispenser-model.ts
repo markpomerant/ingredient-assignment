@@ -8,10 +8,6 @@ const MODEL_TYPE = "dispenser-model";
 const log = KosLog.getLogger("dispenser-model");
 
 
-const convertToAssignment = (data: ApiCallback): Services.Assignment => {
-  const assignment: Services.Assignment = JSON.parse(data.body);
-  return assignment as Services.Assignment;
-}
 @kosModel<IDispenserModel, IDispenserOptions>(MODEL_TYPE)
 export class DispenserModel implements IDispenserModel {
   id: string;
@@ -45,8 +41,7 @@ export class DispenserModel implements IDispenserModel {
    }
 
    @kosTopicHandler({topic: "/kos/assignments/add", 
-   websocket: true, 
-   transform: convertToAssignment})
+   websocket: true})
    addIngredientAssignment(data: Services.Assignment) {
        const ingredientId = data.ingredientId;
        const ingredientModel = this.ingredients.container.getModel(ingredientId);
@@ -58,10 +53,7 @@ export class DispenserModel implements IDispenserModel {
 
    @kosTopicHandler({
     topic: "/kos/assignments/remove", 
-    websocket: true, transform: (data) => {
-       const assignment = JSON.parse(data.body);
-       return assignment;
-   }})
+    websocket: true})
    removeIngredientAssignment(data: Services.Assignment) {
        const holder = this.holders.getModel(data.holderPath);
        if (holder) {
