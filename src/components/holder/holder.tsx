@@ -20,6 +20,7 @@ export const Holder: React.FunctionComponent<Props> = kosComponent(
         {holder.canAssign ? (
           <div>
             <IngredientSelect
+              filter={holder.type}
               disabled={!holder.canAssign}
               onSelect={(ingredientId) => holder.assignIngredient(ingredientId)}
             ></IngredientSelect>

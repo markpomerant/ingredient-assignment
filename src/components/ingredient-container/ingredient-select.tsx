@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useIngredientContainerModel } from "../../hooks/ingredient-container";
+import { HolderType } from "../../models/holder/types";
+import { IIngredientModel } from "../../models/ingredient";
 import { Button } from "../button";
 import { Modal } from "../modal";
 import "./ingredient.css";
@@ -7,20 +9,26 @@ import "./ingredient.css";
 interface Props {
   onSelect: (id: string) => void;
   disabled: boolean;
+  filter: HolderType;
 }
 export const IngredientSelect: React.FunctionComponent<Props> = ({
   onSelect,
   disabled,
+  filter,
 }) => {
   const [selected, setSelected] = useState("");
+  const [ingredients, setIngredients] = useState<IIngredientModel[]>([]);
   const [show, setShow] = useState(false);
   const { model } = useIngredientContainerModel();
+
   useEffect(() => {
     if (model?.container) {
-      setSelected(model.container.data[0].id);
+      const ingredients = model?.container.getIndexByKey("holder", filter);
+      setSelected(ingredients[0].id);
+      setIngredients(ingredients);
     }
-  }, [model]);
-  const options = model?.container.data.map((ingredient) => {
+  }, [model, filter]);
+  const options = ingredients?.map((ingredient) => {
     return (
       <div
         key={ingredient.id}

@@ -3,6 +3,8 @@ import { IDispenserModel, IDispenserOptions } from "./types";
 import {IIngredientContainerModel, IngredientContainer} from "../ingredient-container";
 import {Services, IHolderModel} from "../holder";
 import {mapAssignmentResponseToModel, mapHolderResponseToModel} from "./mappings";
+import {Configuration, ConfigurationModel} from "../configuration";
+
 const MODEL_TYPE = "dispenser-model";
 
 const log = KosLog.getLogger("dispenser-model");
@@ -14,6 +16,8 @@ export class DispenserModel implements IDispenserModel {
   holders: IKosModelContainer<IHolderModel>;
   @kosDependency({modelType: IngredientContainer.type})
   ingredients!: IIngredientContainerModel;
+
+
 
   constructor(modelId: string) {
     log.debug("creating new instance of Dispenser Model");

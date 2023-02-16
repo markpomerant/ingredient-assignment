@@ -1,7 +1,7 @@
 import {kosModel, KosLog, Kos} from "@coca-cola/kos-ui-core";
 import {addAssignment, deleteAssignment} from "./services/assignment-services";
 
-import {IHolderModel, IHolderOptions} from "./types";
+import {HolderType, IHolderModel, IHolderOptions} from "./types";
 
 const MODEL_TYPE = "holder-model";
 const log = KosLog.getLogger("holder-model");
@@ -10,11 +10,13 @@ const log = KosLog.getLogger("holder-model");
 export class HolderModel implements IHolderModel {
     id: string;
     name: string;
+    type: HolderType;
     private _ingredient?: string;
 
     constructor(modelId: string, options: IHolderOptions) {
         this.id = modelId;
         this.name = options.name;
+        this.type = options.type;
         this._ingredient = "";
     }
     get ingredient() {

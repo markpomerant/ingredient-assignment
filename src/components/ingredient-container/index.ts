@@ -1,1 +1,1 @@
-export * from "./ingredient-container";
+export * from "./ingredient-select";

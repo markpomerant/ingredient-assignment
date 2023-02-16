@@ -1,6 +1,7 @@
 import {IDispenserModel} from "../types";
 import { KosLog } from "@coca-cola/kos-ui-core";
-import {Holder, Services} from "../../holder";
+import {Holder, IHolderOptions, Services} from "../../holder";
+import {HolderType} from "../../holder/types";
 
 const log = KosLog.getLogger("assignment-mappings");
 
@@ -18,6 +19,9 @@ export const mapAssignmentResponseToModel = (model: IDispenserModel) => (assignm
 
  export const mapHolderResponseToModel = (model: IDispenserModel) => (holderData: Services.HolderResponse) => {
     log.debug("creating holder factory", holderData.path);
-     const holder = Holder.factory(holderData.path)(holderData);
+    const {pumps, ...data} = holderData;
+    const type: HolderType = pumps[0].type.includes("ambient") ? "AMBIENT" : pumps[0].type.includes("syrup") ? "SYRUP" : "WATER";
+    const options:IHolderOptions = {...data, type};
+     const holder = Holder.factory(holderData.path)(options);
      model.holders.addModel(holder);
   }

@@ -1,8 +1,10 @@
 import { IKosDataModel } from "@coca-cola/kos-ui-core";
 
+type HolderType = "AMBIENT" | "SYRUP" | "WATER";
 export interface IHolderOptions {
   // the name of the holder.  will be specified at creation time.
   name: string;
+  type: HolderType;
 }
 
 export interface IHolderModel extends IHolderOptions, IKosDataModel {

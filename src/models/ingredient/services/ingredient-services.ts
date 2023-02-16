@@ -4,9 +4,12 @@ const { getAll } = ServiceFactory.build({
   basePath: `${URL}/api/kos/ingredients`,
 });
 
+type BEV_TYPES = "CARB_BEV" | "FLAVOR" | "WATER" | "CARB" | "PLAIN_BEV"
 interface IngredientResponse {
   id: string;
   name: string;
+  type: BEV_TYPES;
+  ratio: number;
 }
 /**
  * @category Service

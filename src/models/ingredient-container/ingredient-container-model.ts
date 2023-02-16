@@ -5,10 +5,22 @@ import {
   IIngredientContainerOptions,
 } from "./types";
 
+
 const MODEL_TYPE = "ingredient-container-model";
 
 const log = KosLog.getLogger("ingredient container-model");
 
+const ingredientFilterIndex = (model: IIngredientModel) =>  {
+  switch (model.type) {
+   case "FLAVOR":
+       return "AMBIENT";
+    case "WATER":
+    case "CARB":
+     return "WATER";
+   default:
+     return "SYRUP";
+ }
+}
 @kosModel<IIngredientContainerModel, IIngredientContainerOptions>(MODEL_TYPE)
 export class IngredientContainerModel implements IIngredientContainerModel {
   id: string;
@@ -16,7 +28,11 @@ export class IngredientContainerModel implements IIngredientContainerModel {
 
   constructor(modelId: string, options: IIngredientContainerOptions) {
     this.id = modelId;
-    this.container = new KosModelContainer();
+    this.container = new KosModelContainer<IIngredientModel>({sortKey: "name", indexMap: { 
+     holder: ingredientFilterIndex
+    }
+  });
+    
   }
 
   // -------------------LIFECYCLE----------------------------

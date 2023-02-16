@@ -8,6 +8,7 @@
     "@coca-cola/kos-test-utils": "^0.0.4-alpha.148",
     "@coca-cola/kos-ui-components": "^0.0.4-alpha.148",
     "@coca-cola/kos-ui-core": "^0.0.4-alpha.148",
+    "@coca-cola/kos-unit-conversion": "^0.0.4-alpha.794",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
