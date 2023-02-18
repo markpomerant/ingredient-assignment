@@ -3,7 +3,7 @@ import { IDispenserModel, IDispenserOptions } from "./types";
 import {IIngredientContainerModel, IngredientContainer} from "../ingredient-container";
 import {Services, IHolderModel} from "../holder";
 import {mapAssignmentResponseToModel, mapHolderResponseToModel} from "./mappings";
-import {Configuration, ConfigurationModel} from "../configuration";
+
 
 const MODEL_TYPE = "dispenser-model";
 
@@ -22,7 +22,9 @@ export class DispenserModel implements IDispenserModel {
   constructor(modelId: string) {
     log.debug("creating new instance of Dispenser Model");
     this.id = modelId;
-    this.holders = new KosModelContainer();
+    this.holders = new KosModelContainer({sortKey: "name", indexMap: {
+      type: "type"
+    }});
   }
 
   async init() {
@@ -51,7 +53,7 @@ export class DispenserModel implements IDispenserModel {
        const ingredientModel = this.ingredients.container.getModel(ingredientId);
       const holder = this.holders.getModel(data.holderPath);
       if (holder && ingredientModel) {
-        holder.updateIngredientAssignment(ingredientModel.name);
+        holder.updateIngredientAssignment(ingredientModel);
        }
    }
 

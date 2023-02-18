@@ -1,6 +1,7 @@
 import { IKosDataModel } from "@coca-cola/kos-ui-core";
+import {IIngredientModel} from "../../ingredient";
 
-type HolderType = "AMBIENT" | "SYRUP" | "WATER";
+export type HolderType = "AMBIENT" | "SYRUP" | "WATER";
 export interface IHolderOptions {
   // the name of the holder.  will be specified at creation time.
   name: string;
@@ -11,12 +12,12 @@ export interface IHolderModel extends IHolderOptions, IKosDataModel {
 
   // The model ID
   id: string;
-  ingredient?: string;
+  ingredient?: IIngredientModel;
 
   // updates the ingredient assignment
   // will be called by event handler when an assignment 
   // event is received
-  updateIngredientAssignment(ingredient?: string);
+  updateIngredientAssignment(ingredient?: IIngredientModel);
 
   // update the assigned ingredient for this holder
   assignIngredient: (id: string) => Promise<void>;

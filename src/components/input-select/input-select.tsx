@@ -6,7 +6,8 @@ interface InputSelectProps {
   defaultValue?: string;
   disabled?: boolean;
   onChange: (value: string) => void;
-  options: { label: string; value: string }[];
+  options: { label: string; value: string; disabled?: boolean }[];
+  style?: Partial<React.CSSProperties>;
 }
 
 export const InputSelect: React.FC<InputSelectProps> = ({
@@ -14,7 +15,7 @@ export const InputSelect: React.FC<InputSelectProps> = ({
   disabled = false,
   onChange,
   options,
-
+  style = {},
   label,
 }) => {
   const id = useId();
@@ -29,15 +30,20 @@ export const InputSelect: React.FC<InputSelectProps> = ({
   );
   return (
     <div>
-      <label htmlFor={id}>{label || "Input"}</label>
+      {label && <label htmlFor={id}>{label || "Input"}</label>}
       <select
+        style={style}
         disabled={disabled}
         defaultValue={defaultValue}
         onChange={handleInputChanged}
         value={input}
       >
         {options.map((option, index) => (
-          <option key={`${option.label}-${index}`} value={option.value}>
+          <option
+            key={`${option.label}-${index}`}
+            value={option.value}
+            disabled={option.disabled}
+          >
             {option.label}
           </option>
         ))}

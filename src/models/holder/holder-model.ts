@@ -1,4 +1,5 @@
 import {kosModel, KosLog, Kos} from "@coca-cola/kos-ui-core";
+import {IIngredientModel} from "../ingredient";
 import {addAssignment, deleteAssignment} from "./services/assignment-services";
 
 import {HolderType, IHolderModel, IHolderOptions} from "./types";
@@ -11,19 +12,19 @@ export class HolderModel implements IHolderModel {
     id: string;
     name: string;
     type: HolderType;
-    private _ingredient?: string;
+    private _ingredient?: IIngredientModel;
 
     constructor(modelId: string, options: IHolderOptions) {
         this.id = modelId;
         this.name = options.name;
         this.type = options.type;
-        this._ingredient = "";
+       
     }
     get ingredient() {
         return this._ingredient;
     }
 
-    updateIngredientAssignment(ingredient?: string) {
+    updateIngredientAssignment(ingredient?: IIngredientModel) {
         this._ingredient = ingredient
     }
     async init(): Promise<void> {

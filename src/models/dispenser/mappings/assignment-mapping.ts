@@ -12,8 +12,8 @@ export const mapAssignmentResponseToModel = (model: IDispenserModel) => (assignm
     const holder = model.holders.getModel(holderPath);
 
     if (holder && ingredientModel) {
-     log.debug("updating ingredient assignment holder factory", holderPath, ingredientModel.name);
-      holder.updateIngredientAssignment(ingredientModel.name);
+     log.debug("updating ingredient assignment holder factory", holderPath, ingredientModel);
+      holder.updateIngredientAssignment(ingredientModel);
     }
  }
 
